@@ -149,6 +149,8 @@ def cta_card(r, cls='reveal'):
 NAV = [('pribeh.html', 'Můj příběh'), ('jak-pracuji.html', 'Jak pracuji'), ('nemovitosti.html', 'Nemovitosti'),
        ('sluzby.html', 'Služby'), ('reference.html', 'Reference'), ('blog.html', 'Blog'), ('kontakt.html', 'Kontakt')]
 
+import hashlib
+def _ver(f): return hashlib.md5(open(f, 'rb').read()).hexdigest()[:8]
 def head(title, desc, r, img='img/site/telefon.webp', path='', ld=''):
     return f'''<!DOCTYPE html>
 <html lang="cs">
@@ -169,8 +171,8 @@ def head(title, desc, r, img='img/site/telefon.webp', path='', ld=''):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300..700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{r}assets/css/style.css">
-<script src="{r}assets/js/main.js" defer></script>
+<link rel="stylesheet" href="{r}assets/css/style.css?v={_ver('assets/css/style.css')}">
+<script src="{r}assets/js/main.js?v={_ver('assets/js/main.js')}" defer></script>
 </head>'''
 
 def header(r, active):
