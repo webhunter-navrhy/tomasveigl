@@ -21,6 +21,9 @@ ARR_L = '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden
 PIN = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>'
 
 esc = H.escape
+BASE = 'https://webhunter-navrhy.github.io/tomasveigl/'
+R11 = 'https://www.reality11.cz/'
+PHONE_I = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" stroke="currentColor" stroke-width="1.6"/></svg>'
 
 # ------------------------------------------------------------------ helpers
 def wave(n=64, seed=1, live=False, cls='', lo=0.18, hi=1.0):
@@ -146,7 +149,7 @@ def cta_card(r, cls='reveal'):
 NAV = [('pribeh.html', 'Můj příběh'), ('jak-pracuji.html', 'Jak pracuji'), ('nemovitosti.html', 'Nemovitosti'),
        ('sluzby.html', 'Služby'), ('reference.html', 'Reference'), ('blog.html', 'Blog'), ('kontakt.html', 'Kontakt')]
 
-def head(title, desc, r, img='img/site/telefon.webp'):
+def head(title, desc, r, img='img/site/telefon.webp', path='', ld=''):
     return f'''<!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -157,7 +160,10 @@ def head(title, desc, r, img='img/site/telefon.webp'):
 <meta name="theme-color" content="#F5F7FA">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
-<meta property="og:image" content="{r}{img}">
+<meta property="og:image" content="{BASE}{img}">
+<meta property="og:url" content="{BASE}{path}">
+<meta property="og:type" content="website">
+<link rel="canonical" href="{BASE}{path}">{ld}
 <meta property="og:locale" content="cs_CZ">
 <link rel="icon" type="image/png" href="{r}img/site/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -172,11 +178,24 @@ def header(r, active):
     return f'''<a class="sr-only" href="#obsah">Přejít k obsahu</a>
 <div class="scroll-progress" aria-hidden="true"></div>
 <header class="nav">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span class="tb-left"><span>Zlatý člen Realitní komory ČR</span><span>Realiťák roku 2023 · 2. místo, okres HK</span><a href="{r}reference.html" class="link-u"><span class="stars">★★★★★</span> 4,8 na Firmy.cz</a></span>
+      <span class="tb-right"><a class="link-u" href="{TEL_H}">{PHONE_I} {TEL}</a><a class="link-u" href="mailto:{MAIL}">{MAIL}</a><a class="tb-cal" href="{CAL}" target="_blank" rel="noopener">Online schůzka {ARR}</a></span>
+    </div>
+  </div>
   <div class="nav-inner">
-    <a href="{r}index.html" class="brand" aria-label="Tomáš Veigl — domů">
-      <img class="b-dark" src="{r}img/site/logo-nav-dark.png" alt="Mgr. Tomáš Veigl" width="1466" height="300">
-      <img class="b-light" src="{r}img/site/logo-nav-light.png" alt="" width="1466" height="300">
-    </a>
+    <div class="lockup">
+      <a href="{r}index.html" class="brand" aria-label="Mgr. Tomáš Veigl — domů">
+        <img class="b-dark" src="{r}img/site/logo-nav-dark.png" alt="Mgr. Tomáš Veigl" width="1460" height="300">
+        <img class="b-light" src="{r}img/site/logo-nav-light.png" alt="" width="1460" height="300">
+      </a>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <a href="{R11}" class="brand-r11" target="_blank" rel="noopener" aria-label="Reality 11">
+        <img class="b-dark" src="{r}img/site/r11-dark.png" alt="reality11" width="600" height="229">
+        <img class="b-light" src="{r}img/site/r11-light.png" alt="" width="600" height="229">
+      </a>
+    </div>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     <nav class="nav-menu" aria-label="Hlavní navigace">
       {links}
@@ -187,7 +206,8 @@ def header(r, active):
 </header>'''
 
 def footer(r):
-    return f'''<footer class="footer">
+    return f'''<div class="mbar"><a href="{TEL_H}" class="mbar-call">{PHONE_I} Zavolat</a><a href="{r}odhad-ceny.html" class="mbar-cta">Odhad ceny zdarma {ARR}</a></div>
+<footer class="footer">
   <div class="container">
     <div class="footer-grid">
       <div>
@@ -225,12 +245,23 @@ def footer(r):
 
 def write(path, title, desc, body, active='', navtheme='dark', img='img/site/telefon.webp'):
     r = '../' * path.count('/')
-    doc = head(title, desc, r, img) + f'\n<body data-nav="{navtheme}">\n' + header(r, active) + \
+    ld = LD if path == 'index.html' else ''
+    doc = head(title, desc, r, img, '' if path == 'index.html' else path, ld) + f'\n<body data-nav="{navtheme}">\n' + header(r, active) + \
         f'\n<main id="obsah">\n{body.replace("@/", r)}\n</main>\n' + footer(r) + '\n</body>\n</html>\n'
     os.makedirs(os.path.dirname(path) or '.', exist_ok=True)
     open(path, 'w').write(doc)
     PAGES.append(path)
 PAGES = []
+LD = '\n<script type="application/ld+json">' + json.dumps({
+    "@context": "https://schema.org", "@type": "RealEstateAgent", "name": "Mgr. Tomáš Veigl — Slyším váš domov",
+    "url": BASE, "image": BASE + "img/site/telefon.webp", "logo": BASE + "img/site/logo-full-color.png",
+    "telephone": "+420737132041", "email": MAIL, "priceRange": "Kč",
+    "address": {"@type": "PostalAddress", "streetAddress": "Třída Edvarda Beneše 1526/78", "addressLocality": "Hradec Králové", "addressCountry": "CZ"},
+    "areaServed": ["Královéhradecký kraj", "Pardubický kraj", "Kutná Hora", "Kolín", "Praha-východ"],
+    "memberOf": {"@type": "Organization", "name": "Reality 11", "url": R11},
+    "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.8", "reviewCount": "35", "bestRating": "5"},
+    "sameAs": ["https://www.facebook.com/realityveigl", "https://www.instagram.com/realitak_s_kochleary", "https://www.linkedin.com/in/mgr-tom%C3%A1%C5%A1-veigl/"]
+}, ensure_ascii=False) + '</script>'
 
 def cta_block(title='Kolik má váš domov <em>hodnotu</em>?', text='Nezávazně a zdarma. Přijedu, poslechnu si, co od prodeje čekáte, a řeknu vám reálnou cenu — ne číslo z kalkulačky.'):
     return f'''<section class="section dark cta">
@@ -247,6 +278,22 @@ def cta_block(title='Kolik má váš domov <em>hodnotu</em>?', text='Nezávazně
       <small>Napište mi</small><a class="big link-u" href="mailto:{MAIL}" style="font-size:clamp(1.4rem,2.2vw,2rem)">{MAIL}</a>
       <small>Kancelář</small><span>{ADDR}</span>
     </div>
+  </div>
+</section>'''
+
+PARTNERS = [('r11', 'img/site/r11-dark.png', 'Realitní síť', R11), ('rkcr', 'img/partners/rkcr.png', 'Zlatý člen', None),
+            ('abes', 'img/partners/abes.png', 'Právní servis', None), ('rezek', 'img/partners/rezek.png', 'Advokátní kancelář', None),
+            ('unicredit', 'img/partners/unicredit.png', 'Úschova peněz', 'https://www.unicreditbank.cz/'), ('sreality', 'img/partners/sreality.png', 'Inzerce', 'https://www.sreality.cz/'),
+            ('idnes', 'img/partners/idnes.png', 'Inzerce', 'https://reality.idnes.cz/'), ('ceskereality', 'img/partners/ceskereality.png', 'Inzerce', 'https://www.ceskereality.cz/')]
+def partners_block(bg=''):
+    cells = ''.join((f'<a class="partner reveal" style="--i:{k % 4}" href="{u}" target="_blank" rel="noopener">' if u else f'<div class="partner reveal" style="--i:{k % 4}">') +
+                    f'<img src="@/{img}" alt="{n}" loading="lazy"><small>{cap}</small>' + ('</a>' if u else '</div>')
+                    for k, (n, img, cap, u) in enumerate(PARTNERS))
+    return f'''<section class="section partners {bg}">
+  <div class="container">
+    <div class="sec-head"><div><p class="label reveal">Bezpečný obchod</p><h2 class="reveal">Za každým obchodem stojí <em>ověření</em> partneři</h2></div>
+    <p class="lead reveal" style="max-width:44ch">Smlouvy připravuje ABES nebo advokátní kancelář Rezek – Petráš, peníze putují přes úschovu UniCredit Bank a vaši nemovitost uvidí lidé na největších realitních portálech.</p></div>
+    <div class="partner-grid">{cells}</div>
   </div>
 </section>'''
 
@@ -285,6 +332,14 @@ def build_home():
     srows = ''.join(f'<a href="@/{h}" class="srow reveal" data-img="@/{img}"><span class="idx">0{k+1}</span><h3>{t}</h3><p>{d}</p><span class="arr">{ARR}</span></a>'
                     for k, (t, d, h, img) in enumerate(services))
     q = revs[1]
+    INT = [('Chci prodat', 'Odhad ceny zdarma a prodej za nejvyšší možnou cenu.', 'odhad-ceny.html'),
+           ('Chci pronajmout', 'Pronájem s radostí — garance nájmu až 600 000 Kč.', 'sluzby.html#pronajem'),
+           ('Hledám bydlení', 'Domy, byty, chalupy a novostavby v nabídce.', 'nemovitosti.html'),
+           ('Potřebuji to rychle', 'Rozvod, dluhy, dědictví? Výkup nebo chytrý prodej.', 'sluzby.html#vykup')]
+    intents = ''.join(f'<a href="@/{h}" class="intent reveal" style="--i:{k}"><span class="n">0{k+1}</span><b>{t}</b><small>{d}</small><span class="arr">{ARR}</span></a>' for k, (t, d, h) in enumerate(INT))
+    sold = [x for x in LIST if x['st'][2] == 'done'][:26]
+    sold_items = ''.join(f'<a href="@/nemovitosti.html?stav={x["st"][0]}" class="sold-item"><img src="@/{x["file"]}" alt="" loading="lazy" decoding="async"><span class="stamp">{x["st"][1]}</span><small>{esc((x.get("addr") or "").split(",")[-1].strip())}</small></a>' for x in sold)
+    n_done = sum(1 for x in LIST if x['st'][2] == 'done')
     body = f'''
 <section class="hero">
   <div class="hero-grid">
@@ -310,6 +365,13 @@ def build_home():
 </section>
 
 <div class="marquee" aria-hidden="true"><div class="marquee-track">{mq}{mq}</div></div>
+
+<section class="intents">
+  <div class="container">
+    <p class="label reveal">S čím přicházíte?</p>
+    <div class="intent-grid">{intents}</div>
+  </div>
+</section>
 
 <section class="section statement">
   <div class="container statement-grid">
@@ -351,6 +413,11 @@ def build_home():
       <div class="arrows" data-rail><button data-dir="prev" aria-label="Předchozí">{ARR_L}</button><button data-dir="next" aria-label="Další">{ARR}</button></div></div>
   </div>
   <div class="rail">{offer_cards}</div>
+  <div class="container sold-head">
+    <p class="reveal"><b>{n_done}</b> domovů na tomhle webu už má nové majitele nebo nájemníky.</p>
+    <a href="@/nemovitosti.html?stav=prodano" class="link reveal">Prodané a pronajaté {ARR}</a>
+  </div>
+  <div class="sold-marquee" aria-label="Prodané a pronajaté nemovitosti"><div class="sold-track">{sold_items}{sold_items}</div></div>
 </section>
 
 <section class="section dark story">
@@ -385,6 +452,8 @@ def build_home():
   </div>
   <div class="srow-preview" aria-hidden="true"></div>
 </section>
+
+{partners_block('bg-paper')}
 
 <section class="section reviews">
   <div class="container">
@@ -784,6 +853,8 @@ def build_services():
     </div>
   </div>
 </section>
+
+{partners_block('bg-paper')}
 
 <section class="section bg-alt" id="novostavby">
   <div class="container">
