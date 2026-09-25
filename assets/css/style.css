@@ -865,3 +865,9 @@ body[data-nav="light"] .nav:not(.scrolled) .b-light { display: block; }
   body.menu-open .mbar { display: none; }
   .footer { padding-bottom: 6rem; }
 }
+/* client logo (tomasveigl.cz — Slyším váš domov) */
+.brand img { height: 48px; }
+.nav.scrolled .brand img { height: 40px; }
+.footer-logo img { width: 250px; }
+@media (max-width: 560px) { .brand img, .nav.scrolled .brand img { height: 36px; } }
+@media (max-width: 420px) { .brand img, .nav.scrolled .brand img { height: 32px; } }

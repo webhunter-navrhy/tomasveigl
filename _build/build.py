@@ -189,8 +189,8 @@ def header(r, active):
   <div class="nav-inner">
     <div class="lockup">
       <a href="{r}index.html" class="brand" aria-label="Mgr. Tomáš Veigl — domů">
-        <img class="b-dark" src="{r}img/site/logo-nav-dark.png" alt="Mgr. Tomáš Veigl" width="1460" height="300">
-        <img class="b-light" src="{r}img/site/logo-nav-light.png" alt="" width="1460" height="300">
+        <img class="b-dark" src="{r}img/site/logo2-dark.png" alt="tomasveigl.cz — Slyším váš domov" width="945" height="184">
+        <img class="b-light" src="{r}img/site/logo2-light.png" alt="" width="945" height="184">
       </a>
       <span class="brand-sep" aria-hidden="true"></span>
       <a href="{R11}" class="brand-r11" target="_blank" rel="noopener" aria-label="Reality 11">
@@ -213,7 +213,7 @@ def footer(r):
   <div class="container">
     <div class="footer-grid">
       <div>
-        <a href="{r}index.html" class="footer-logo"><img src="{r}img/site/logo-stack-light.png" alt="Mgr. Tomáš Veigl" width="831" height="470"></a>
+        <a href="{r}index.html" class="footer-logo"><img src="{r}img/site/logo2-light.png" alt="tomasveigl.cz — Slyším váš domov" width="945" height="184"></a>
         <img class="footer-powered" src="{r}img/site/powered-light.png" alt="Powered by reality11" width="365" height="61">
         <p style="max-width:34ch;margin-top:1.4rem">Realitní makléř z Hradce Králové. Slyším díky technice, rozumím díky srdci.</p>
         <div class="footer-badges"><img src="{r}img/site/rkcr.png" alt="Realitní komora ČR — zlatý člen"></div>
@@ -256,7 +256,7 @@ def write(path, title, desc, body, active='', navtheme='dark', img='img/site/tel
 PAGES = []
 LD = '\n<script type="application/ld+json">' + json.dumps({
     "@context": "https://schema.org", "@type": "RealEstateAgent", "name": "Mgr. Tomáš Veigl — Slyším váš domov",
-    "url": BASE, "image": BASE + "img/site/telefon.webp", "logo": BASE + "img/site/logo-full-color.png",
+    "url": BASE, "image": BASE + "img/site/telefon.webp", "logo": BASE + "img/site/logo2-dark.png",
     "telephone": "+420737132041", "email": MAIL, "priceRange": "Kč",
     "address": {"@type": "PostalAddress", "streetAddress": "Třída Edvarda Beneše 1526/78", "addressLocality": "Hradec Králové", "addressCountry": "CZ"},
     "areaServed": ["Královéhradecký kraj", "Pardubický kraj", "Kutná Hora", "Kolín", "Praha-východ"],
