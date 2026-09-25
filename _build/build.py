@@ -138,7 +138,7 @@ def card(x, r, feat=False, i=0):
             f'<div class="card-meta"><span>{esc(x.get("addr") or "")}</span></div></{tag}>')
 
 def cta_card(r, cls='reveal'):
-    return (f'<a href="{r}odhad-ceny.html" class="card-cta {cls}">{ripples()}<span class="label" style="color:#FFD9C2">Prodáváte?</span>'
+    return (f'<a href="{r}odhad-ceny.html" class="card-cta {cls}">{ripples()}<span class="label" style="color:#C9EEF2">Prodáváte?</span>'
             f'<h3>Tady je místo pro <em>vaši</em> nemovitost.</h3>'
             f'<span class="row" style="font-weight:600;font-size:.9rem">Odhad ceny zdarma {ARR}</span></a>')
 
@@ -154,7 +154,7 @@ def head(title, desc, r, img='img/site/telefon.webp'):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
-<meta name="theme-color" content="#F4EFE7">
+<meta name="theme-color" content="#F5F7FA">
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:image" content="{r}{img}">
@@ -174,9 +174,8 @@ def header(r, active):
 <header class="nav">
   <div class="nav-inner">
     <a href="{r}index.html" class="brand" aria-label="Tomáš Veigl — domů">
-      <img class="b-dark" src="{r}img/site/logo-mono-dark.png" alt="" width="46" height="32">
-      <img class="b-light" src="{r}img/site/logo-mono-light.png" alt="" width="46" height="32">
-      <span class="brand-name"><strong>Tomáš Veigl</strong><small>Slyším váš domov</small></span>
+      <img class="b-dark" src="{r}img/site/logo-nav-dark.png" alt="Mgr. Tomáš Veigl" width="1466" height="300">
+      <img class="b-light" src="{r}img/site/logo-nav-light.png" alt="" width="1466" height="300">
     </a>
     <button class="nav-toggle" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     <nav class="nav-menu" aria-label="Hlavní navigace">
@@ -192,9 +191,10 @@ def footer(r):
   <div class="container">
     <div class="footer-grid">
       <div>
-        <a href="{r}index.html" class="brand"><img src="{r}img/site/logo-mono-light.png" alt="" width="46" height="32"><span class="brand-name"><strong>Tomáš Veigl</strong><small>Slyším váš domov</small></span></a>
-        <p style="max-width:34ch">Realitní makléř z Hradce Králové. Slyším díky technice, rozumím díky srdci.</p>
-        <div class="footer-badges"><img src="{r}img/site/rkcr.png" alt="Realitní komora ČR — zlatý člen"><img class="inv" src="{r}img/site/r11.png" alt="Powered by Reality 11"></div>
+        <a href="{r}index.html" class="footer-logo"><img src="{r}img/site/logo-stack-light.png" alt="Mgr. Tomáš Veigl" width="831" height="470"></a>
+        <img class="footer-powered" src="{r}img/site/powered-light.png" alt="Powered by reality11" width="365" height="61">
+        <p style="max-width:34ch;margin-top:1.4rem">Realitní makléř z Hradce Králové. Slyším díky technice, rozumím díky srdci.</p>
+        <div class="footer-badges"><img src="{r}img/site/rkcr.png" alt="Realitní komora ČR — zlatý člen"></div>
       </div>
       <div><h4>Web</h4><ul>{''.join(f'<li><a class="link-u" href="{r}{h}">{t}</a></li>' for h, t in NAV)}</ul></div>
       <div><h4>Služby</h4><ul>
@@ -296,7 +296,7 @@ def build_home():
         {btn('@/odhad-ceny.html', 'Odhad ceny zdarma', '', True)}
         <a href="@/nemovitosti.html" class="link">Nemovitosti v nabídce {ARR}</a>
       </div>
-      <div class="hero-proof fade-up mt-lg" style="--d:1.05s"><b>4,8</b><span><span class="stars">★★★★★</span><br>35 hodnocení na Firmy.cz</span></div>
+      <div class="hero-proof fade-up mt-lg" style="--d:1.05s"><b>4,8</b><span><span class="stars">★★★★★</span><br>35 hodnocení na Firmy.cz</span><i class="vr"></i><img src="@/img/site/powered-dark.png" alt="Powered by reality11" width="365" height="61" class="powered"></div>
     </div>
     <div class="hero-figure">
       {ripples()}
@@ -321,7 +321,8 @@ def build_home():
         <div class="pillar reveal" style="--i:1"><span class="n">02</span><h3>Spolehlivost</h3><p>Ozývám se, jak jsem slíbil, plním, co očekáváte — a vždy jednám ve vašem zájmu.</p></div>
         <div class="pillar reveal" style="--i:2"><span class="n">03</span><h3>Úspora času</h3><p>Vím, co a jak zařídit, aby prodej proběhl bezpečně a s požadovaným výsledkem.</p></div>
       </div>
-      <div class="sig reveal"><img src="@/img/site/portrait.webp" alt="" style="background:var(--accent)"><span><b>Mgr. Tomáš Veigl</b><small>Realitní makléř · Reality 11 · zlatý člen RK ČR</small></span></div>
+      <div class="house-rule reveal mt-lg" aria-hidden="true"><span></span></div>
+      <div class="sig reveal"><img src="@/img/site/portrait.webp" alt="" style="background:var(--accent-bright)"><span><b>Mgr. Tomáš Veigl</b><small>Realitní makléř · Powered by reality11 · zlatý člen RK ČR</small></span></div>
     </div>
   </div>
 </section>
@@ -631,6 +632,7 @@ def build_listing():
 def prose(blocks, hl='h3'):
     out = []
     for b in blocks:
+        if b['t'] != 'ul': b = dict(b, v=re.sub(r'\(?\s*Rozsah_dodavky__Stavba_k_dokonceni_PURLIVE\s*\)?', '(rozsah dodávky: stavba k dokončení PURLIVE)', b['v']))
         if b['t'] == 'ul':
             out.append('<ul>' + ''.join(f'<li>{v}</li>' for v in b['v']) + '</ul>')
         elif b['t'] == 'h':
@@ -974,8 +976,8 @@ def build_contact():
 </section>
 <section class="section dark" style="padding-block:var(--gap-xl)">
   <div class="container row" style="justify-content:space-between;gap:2rem">
-    <p class="reveal" style="font-family:var(--font-display);font-size:clamp(1.8rem,3.4vw,3rem);line-height:1.15;max-width:24ch">Slyším díky technice, <em style="color:#F0B08A">rozumím díky srdci</em>.</p>
-    <div class="reveal" style="color:#F0B08A;width:min(420px,100%)">{wave(60, 17, True)}</div>
+    <p class="reveal" style="font-family:var(--font-display);font-size:clamp(1.8rem,3.4vw,3rem);line-height:1.15;max-width:24ch">Slyším díky technice, <em style="color:#73C7D2">rozumím díky srdci</em>.</p>
+    <div class="reveal" style="color:#73C7D2;width:min(420px,100%)">{wave(60, 17, True)}</div>
   </div>
 </section>
 '''
