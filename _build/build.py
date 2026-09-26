@@ -972,6 +972,10 @@ def build_admin_assets():
     os.makedirs('admin', exist_ok=True)
     json.dump({'schema': SCHEMA}, open('admin/schema.json', 'w'), ensure_ascii=False)
     json.dump({'sha': os.environ.get('GITHUB_SHA', 'local'), 'built': date.today().isoformat()}, open('version.json', 'w'))
+    ai = open('admin/index.html').read()   # verze assetů administrace podle obsahu (cache busting)
+    ai = re.sub(r'admin\.css\?v=[\w]+', 'admin.css?v=' + _ver('admin/admin.css'), ai)
+    ai = re.sub(r'admin\.js\?v=[\w]+', 'admin.js?v=' + _ver('admin/admin.js'), ai)
+    open('admin/index.html', 'w').write(ai)
 
 if __name__ == '__main__':
     for d in ('nemovitosti', 'blog'):   # remove pages of deleted items

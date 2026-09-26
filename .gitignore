@@ -1,3 +1,9 @@
 img/raw/
 .DS_Store
 __pycache__/
+# generováno GitHub Action z _data/ (python _build/build.py)
+/*.html
+/nemovitosti/
+/blog/
+/version.json
+/admin/schema.json

@@ -6,15 +6,17 @@
    ===================================================================== */
 'use strict';
 (() => {
-const CFG = { repo: 'webhunter-navrhy/tomasveigl', branch: 'main', site: '../' };
-const API = 'https://api.github.com';
+const CFG = {
+  id: 'tomasveigl', repo: 'webhunter-navrhy/tomasveigl', site: '../',
+  api: /^(localhost|127\.0\.0\.1)$/.test(location.hostname) ? 'http://localhost:8787' : 'https://webhunter-admin.webhunter.workers.dev',
+};
 const FILES = { site: '_data/site.json', listings: '_data/listings.json', posts: '_data/posts.json', reviews: '_data/reviews.json' };
 const LABEL = { site: 'Texty a nastavení webu', listings: 'Nemovitosti', posts: 'Blog', reviews: 'Reference' };
 const STATUSES = [['nabidka', 'V nabídce'], ['pripravujeme', 'Připravujeme'], ['rezervace', 'Rezervace'], ['prodano', 'Prodáno'], ['pronajato', 'Pronajato']];
 const STATUS_L = Object.fromEntries(STATUSES);
 const TYPES = ['Rodinný dům', 'Byt', 'Novostavba', 'Chata / chalupa', 'Pozemek', 'Komerční', 'Jiné'];
 
-const S = { token: null, auth: null, schema: [], D: {}, snap: {}, pending: {}, preview: {}, def: false, saving: false,
+const S = { sess: null, schema: [], D: {}, snap: {}, pending: {}, preview: {}, def: false, saving: false,
             lf: { status: 'all', q: '' }, pub: { state: 'off', text: '' } };
 
 /* ------------------------------------------------------------ icons */
@@ -98,75 +100,35 @@ function modal({ title, body, actions = [], wide = false, onMount }) {
 }
 const confirmDlg = (title, text, ok = 'Smazat', cls = 'btn-danger') => modal({ title, body: `<p>${text}</p>`, actions: [{ label: 'Zrušit', value: false }, { label: ok, cls, value: true }] }).then((v) => v === true);
 
-/* ------------------------------------------------------------ crypto */
+/* ------------------------------------------------------------ server (WebHunter admin API) */
 const b64e = (bytes) => { let s = ''; bytes = new Uint8Array(bytes); for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(s); };
-const b64d = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
 const utf8b64 = (str) => b64e(new TextEncoder().encode(str));
-const hex = (bytes) => [...new Uint8Array(bytes)].map((b) => b.toString(16).padStart(2, '0')).join('');
-async function derive(pw, salt, iter) {
-  const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
-  return new Uint8Array(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations: iter }, k, 512));
-}
-async function aesKey(bits) { return crypto.subtle.importKey('raw', bits.slice(0, 32), 'AES-GCM', false, ['encrypt', 'decrypt']); }
-async function encryptTok(bits, text) { const iv = crypto.getRandomValues(new Uint8Array(12)); const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, await aesKey(bits), new TextEncoder().encode(text)); return { iv: b64e(iv), ct: b64e(ct) }; }
-async function decryptTok(bits, o) { const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64d(o.iv) }, await aesKey(bits), b64d(o.ct)); return new TextDecoder().decode(pt); }
-async function newAuth(pw, token) {
-  const salt = crypto.getRandomValues(new Uint8Array(16)); const iter = 210000;
-  const bits = await derive(pw, salt, iter);
-  return { v: 1, salt: b64e(salt), iter, verifier: hex(bits.slice(32)), token: token ? await encryptTok(bits, token) : null, repo: CFG.repo, branch: CFG.branch };
-}
-async function checkPw(pw, a = S.auth) {
-  const bits = await derive(pw, b64d(a.salt), a.iter);
-  if (hex(bits.slice(32)) !== a.verifier) return null;
-  let token = null;
-  if (a.token) { try { token = await decryptTok(bits, a.token); } catch { return null; } }
-  return { token };
-}
-
-/* ------------------------------------------------------------ GitHub */
-async function gh(path, opt = {}, token = S.token) {
-  const headers = { Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opt.headers || {}) };
-  if (token) headers.Authorization = 'Bearer ' + token;
-  if (opt.body && !headers['Content-Type']) headers['Content-Type'] = 'application/json';
-  const r = await fetch(API + path, { ...opt, headers, cache: 'no-store' });
-  if (!r.ok) {
-    let msg = r.statusText; try { msg = (await r.json()).message || msg; } catch {}
-    const e = new Error(r.status === 401 ? 'Přístupový klíč k GitHubu je neplatný nebo vypršel.' : r.status === 403 || r.status === 404 ? `GitHub odmítl přístup (${r.status}: ${msg}). Zkontrolujte oprávnění klíče.` : `GitHub ${r.status}: ${msg}`);
-    e.status = r.status; throw e;
+function saveSess() { localStorage.setItem('tv_sess_' + CFG.id, JSON.stringify({ t: S.sess, def: S.def, exp: Date.now() + 11.5 * 3600e3 })); }
+async function api(path, opt = {}, retried = false) {
+  const headers = { ...(opt.body && typeof opt.body === 'string' ? { 'Content-Type': 'application/json' } : {}), ...(opt.headers || {}) };
+  if (S.sess) headers.Authorization = 'Bearer ' + S.sess;
+  let r;
+  try { r = await fetch(`${CFG.api}/api/${CFG.id}${path}`, { ...opt, headers, cache: 'no-store' }); }
+  catch { throw new Error('Nelze se spojit se serverem administrace. Zkontrolujte připojení k internetu.'); }
+  if (r.status === 401 && path !== '/login' && !retried && S.D.site) {
+    if (await reauth()) return api(path, opt, true);   // přihlášení vypršelo uprostřed práce — neztratit rozdělanou práci
   }
-  if (opt.raw) return r.text();
-  return r.status === 204 ? null : r.json();
+  if (!r.ok) { let m = r.statusText; try { m = (await r.json()).error || m; } catch {} const e = new Error(m); e.status = r.status; throw e; }
+  return opt.raw ? r.text() : r.json();
 }
-const R = () => `/repos/${CFG.repo}`;
-async function readFile(path) {
-  if (S.token) return gh(`${R()}/contents/${path}?ref=${CFG.branch}&t=${Date.now()}`, { headers: { Accept: 'application/vnd.github.raw' }, raw: true });
-  const r = await fetch(CFG.site + path + '?t=' + Date.now(), { cache: 'no-store' });
-  if (!r.ok) throw new Error('Nelze načíst ' + path);
-  return r.text();
-}
-async function loadAuth() {
-  try { S.auth = JSON.parse(await gh(`${R()}/contents/_data/auth.json?ref=${CFG.branch}&t=${Date.now()}`, { headers: { Accept: 'application/vnd.github.raw' }, raw: true }, null)); }
-  catch { const r = await fetch(CFG.site + '_data/auth.json?t=' + Date.now(), { cache: 'no-store' }); S.auth = await r.json(); }
-  return S.auth;
-}
-async function commit(files, message, token = S.token) {
-  const ref = await gh(`${R()}/git/ref/heads/${CFG.branch}`, {}, token);
-  const base = ref.object.sha;
-  const bc = await gh(`${R()}/git/commits/${base}`, {}, token);
-  const tree = [];
-  const queue = [...files];
+const readFile = (path) => api('/file?path=' + encodeURIComponent(path) + '&t=' + Date.now(), { raw: true });
+async function commit(files, message) {
+  // 1) každý soubor nahrát jako blob (tělo jde na GitHub beze změny), 2) jeden commit se všemi soubory
+  const out = []; const queue = [...files];
   const worker = async () => {
     while (queue.length) {
       const f = queue.shift();
-      const blob = await gh(`${R()}/git/blobs`, { method: 'POST', body: JSON.stringify({ content: f.b64 ?? utf8b64(f.content), encoding: 'base64' }) }, token);
-      tree.push({ path: f.path, mode: '100644', type: 'blob', sha: blob.sha });
+      const { sha } = await api('/blob', { method: 'POST', body: JSON.stringify({ content: f.b64 ?? utf8b64(f.content), encoding: 'base64' }) });
+      out.push({ path: f.path, sha });
     }
   };
   await Promise.all([worker(), worker(), worker()]);
-  const t = await gh(`${R()}/git/trees`, { method: 'POST', body: JSON.stringify({ base_tree: bc.tree.sha, tree }) }, token);
-  const c = await gh(`${R()}/git/commits`, { method: 'POST', body: JSON.stringify({ message, tree: t.sha, parents: [base] }) }, token);
-  await gh(`${R()}/git/refs/heads/${CFG.branch}`, { method: 'PATCH', body: JSON.stringify({ sha: c.sha }) }, token);
-  return c.sha;
+  return (await api('/commit', { method: 'POST', body: JSON.stringify({ files: out, message }) })).sha;
 }
 
 /* ------------------------------------------------------------ data + dirty state */
@@ -207,7 +169,6 @@ function validate() {
 async function saveAll() {
   const keys = dirtyKeys();
   if (!keys.length || S.saving) return;
-  if (!S.token) return connectPrompt();
   const err = validate(); if (err) return toast('Nelze uložit', err, 'err');
   S.saving = true; updateSavebar();
   const bar = document.createElement('div'); bar.className = 'progress-line'; document.body.appendChild(bar);
@@ -216,7 +177,7 @@ async function saveAll() {
     const used = JSON.stringify(S.D);
     const imgs = Object.keys(S.pending).filter((p) => used.includes(p));
     imgs.forEach((p) => files.push({ path: p, b64: S.pending[p] }));
-    const sha = await commit(files, 'Administrace: ' + keys.map((k) => LABEL[k]).join(', ') + (imgs.length ? ` (+${imgs.length} ${imgs.length === 1 ? 'obrázek' : imgs.length < 5 ? 'obrázky' : 'obrázků'})` : ''));
+    const sha = await commit(files, keys.map((k) => LABEL[k]).join(', ') + (imgs.length ? ` (+${imgs.length} ${imgs.length === 1 ? 'obrázek' : imgs.length < 5 ? 'obrázky' : 'obrázků'})` : ''));
     imgs.forEach((p) => delete S.pending[p]);
     snapshot(keys);
     toast('Uloženo', 'Změny se na webu objeví přibližně za minutu.', 'ok');
@@ -243,7 +204,6 @@ function watchPublish(sha) {
   }, 6000);
 }
 function initPub() {
-  if (!S.token) return setPub('off', 'Ukládání není propojené');
   const p = JSON.parse(localStorage.getItem('tv_pub') || 'null');
   if (p && Date.now() - p.t < 10 * 60000) watchPublish(p.sha); else setPub('', 'Web je aktuální');
 }
@@ -379,13 +339,21 @@ async function mountRTE(el, html, onChange, placeholder = 'Začněte psát…') 
 
 const autosize = (ta) => { ta.style.height = 'auto'; ta.style.height = Math.max(ta.scrollHeight + 2, 46) + 'px'; };
 
-/* ------------------------------------------------------------ connect / auth dialogs */
-function connectPrompt() {
-  return modal({
-    title: 'Ukládání ještě není propojené',
-    body: `<p>Aby se změny z administrace mohly ukládat přímo na web, je potřeba jednou vložit přístupový klíč k úložišti webu (GitHub). Stačí to udělat jednou — klíč se uloží zašifrovaný vaším heslem.</p><p class="hint">Klíč vám připraví správce webu. Najdete ho v <b>Nastavení → Propojení</b>.</p>`,
-    actions: [{ label: 'Zavřít', value: false }, { label: 'Přejít do nastavení', cls: 'btn-primary', value: true }],
-  }).then((v) => { if (v) location.hash = '#/nastaveni'; });
+/* ------------------------------------------------------------ re-login without losing work */
+let reauthP = null;
+function reauth() {
+  if (reauthP) return reauthP;
+  reauthP = modal({
+    title: 'Přihlaste se prosím znovu',
+    body: `<p>Z bezpečnostních důvodů vypršelo přihlášení. Vaše rozpracované změny zůstávají — po přihlášení se uloží.</p><div class="f" style="margin-top:1rem"><label>Heslo</label><input type="password" data-rpw autocomplete="current-password"></div><p class="hint" data-rerr style="color:var(--danger)"></p>`,
+    actions: [{ label: 'Zrušit', value: false }, { label: 'Přihlásit', cls: 'btn-primary', get: (bg) => ({ pw: bg.querySelector('[data-rpw]').value }) }],
+    onMount: (bg) => bg.querySelector('[data-rpw]').addEventListener('keydown', (e) => { if (e.key === 'Enter') bg.querySelector('[data-a="1"]').click(); }),
+  }).then(async (v) => {
+    if (!v) return false;
+    try { const r = await api('/login', { method: 'POST', body: JSON.stringify({ password: v.pw }) }); S.sess = r.token; S.def = r.def; saveSess(); return true; }
+    catch (e) { toast('Přihlášení se nepovedlo', e.message, 'err'); return false; }
+  }).finally(() => { reauthP = null; });
+  return reauthP;
 }
 
 /* ------------------------------------------------------------ LOGIN */
@@ -410,19 +378,19 @@ function renderLogin(msg = '') {
     e.preventDefault();
     const b = form.querySelector('[type=submit]'); b.disabled = true; b.innerHTML = '<span class="spin" style="border-color:rgba(255,255,255,.3);border-top-color:#fff"></span> Ověřuji…';
     try {
-      await loadAuth();
-      const ok = await checkPw(pw.value);
-      if (!ok) { $('.err').textContent = 'Nesprávné heslo. Zkuste to znovu.'; form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake'); pw.select(); return; }
-      S.token = ok.token; S.def = pw.value === 'admin';
-      sessionStorage.setItem('tva', JSON.stringify({ token: S.token, def: S.def }));
+      const r = await api('/login', { method: 'POST', body: JSON.stringify({ password: pw.value }) });
+      S.sess = r.token; S.def = r.def; saveSess();
       await boot();
-    } catch (err) { $('.err').textContent = 'Přihlášení se nepovedlo: ' + err.message; }
+    } catch (err) {
+      $('.err').textContent = err.status === 401 ? 'Nesprávné heslo. Zkuste to znovu.' : err.message;
+      form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake'); pw.select();
+    }
     finally { b.disabled = false; b.textContent = 'Přihlásit se'; }
   });
 }
 function logout() {
   if (dirtyKeys().length && !confirm('Máte neuložené změny. Opravdu se odhlásit a zahodit je?')) return;
-  sessionStorage.removeItem('tva'); S.token = null; S.snap = {}; S.D = {}; location.hash = ''; renderLogin();
+  localStorage.removeItem('tv_sess_' + CFG.id); S.sess = null; S.snap = {}; S.D = {}; location.hash = ''; renderLogin();
 }
 
 /* ------------------------------------------------------------ SHELL */
@@ -527,7 +495,6 @@ function viewDash() {
   const hi = h < 10 ? 'Dobré ráno' : h < 18 ? 'Dobrý den' : 'Dobrý večer';
   const cover = (x) => (x.photos || [])[0] || x.thumb || (x.viz || [])[0] || '';
   page().innerHTML = `
-    ${!S.token ? `<div class="banner warn">${IC.alert}<span><b>Ukládání zatím není propojené</b>Můžete si vše prohlížet a zkoušet, ale uložit změny půjde až po propojení s úložištěm webu.</span><a class="btn btn-primary btn-sm" href="#/nastaveni">Propojit</a></div>` : ''}
     ${S.def ? `<div class="banner warn">${IC.lock}<span><b>Používáte výchozí heslo „admin“</b>Z bezpečnostních důvodů si ho prosím hned změňte.</span><a class="btn btn-primary btn-sm" href="#/nastaveni">Změnit heslo</a></div>` : ''}
     <section class="welcome"><div class="rings"><span></span><span></span><span></span></div>
       <div><h2>${hi}, <em>Tomáši</em>.</h2><p>Na webu máte ${active} ${active === 1 ? 'nemovitost' : active < 5 ? 'nemovitosti' : 'nemovitostí'} v nabídce, ${S.D.posts.length} článků a ${S.D.reviews.length} referencí. Co dnes upravíme?</p>
@@ -924,7 +891,7 @@ function viewTexts(pid) {
 function viewSettings() {
   updateNav('nastaveni');
   setTop([['Nastavení']]);
-  page().innerHTML = `<div class="page-head"><div><h1>Nastavení</h1><p>Heslo do administrace, propojení s úložištěm webu a zálohy.</p></div></div>
+  page().innerHTML = `<div class="page-head"><div><h1>Nastavení</h1><p>Heslo do administrace, stav webu a zálohy.</p></div></div>
     <div class="dash-grid">
       <div style="display:grid;gap:1.4rem;align-content:start">
         <section class="card"><div class="card-head"><h3>Heslo do administrace</h3>${S.def ? '<span class="st st-rezervace">Výchozí heslo</span>' : '<span class="st st-nabidka">Nastaveno</span>'}</div>
@@ -932,27 +899,22 @@ function viewSettings() {
             <div class="f full"><label>Současné heslo</label><input type="password" name="old" autocomplete="current-password"></div>
             <div class="f"><label>Nové heslo</label><input type="password" name="n1" autocomplete="new-password" minlength="8"></div>
             <div class="f"><label>Nové heslo znovu</label><input type="password" name="n2" autocomplete="new-password"></div>
-            <div class="full" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap"><span class="hint" style="margin:0">Alespoň 8 znaků. Heslo se ukládá jen zašifrované.</span><button class="btn btn-primary" type="submit">Změnit heslo</button></div>
+            <div class="full" style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap"><span class="hint" style="margin:0">Alespoň 8 znaků. Po změně se odhlásí všechna ostatní zařízení.</span><button class="btn btn-primary" type="submit">Změnit heslo</button></div>
           </form></section>
-        <section class="card"><div class="card-head"><h3>Propojení s úložištěm webu</h3>${S.token ? '<span class="st st-nabidka">Propojeno</span>' : '<span class="st st-rezervace">Nepropojeno</span>'}</div>
-          <div class="card-pad" style="display:grid;gap:1rem">
-            ${S.token ? `<p>Administrace je propojená s úložištěm <b>${esc(CFG.repo)}</b>. Uložené změny se na web dostanou automaticky do minuty.</p>` : `<p>Aby šlo ukládat, vložte jednou přístupový klíč (GitHub token) s oprávněním <b>Contents: Read and write</b> pouze pro repozitář <b>${esc(CFG.repo)}</b>. Klíč se uloží zašifrovaný vaším heslem — nikde jinde se neukládá.</p>`}
-            <details ${S.token ? '' : 'open'}><summary style="cursor:pointer;font-weight:600;color:var(--teal-d)">${S.token ? 'Vyměnit přístupový klíč' : 'Vložit přístupový klíč'}</summary>
-              <form class="fgrid" data-conn style="margin-top:1rem">
-                <div class="f full"><label>Přístupový klíč (GitHub token)</label><input type="password" name="tok" placeholder="github_pat_…" autocomplete="off"></div>
-                <div class="f full"><label>Heslo do administrace <span class="opt">pro zašifrování klíče</span></label><input type="password" name="pw" autocomplete="current-password"></div>
-                <div class="full"><button class="btn btn-primary" type="submit">${IC.link} Propojit</button></div>
-              </form></details>
+        <section class="card"><div class="card-head"><h3>Zabezpečení</h3><span class="st st-nabidka">Chráněno</span></div>
+          <div class="card-pad" style="display:grid;gap:.7rem;font-size:.9rem;color:#344054">
+            <p>Heslo se ověřuje na zabezpečeném serveru a nikde na webu není uložené. Po 8 chybných pokusech se přihlašování na 15 minut zablokuje.</p>
+            <p>Přihlášení platí 12 hodin, pak vás administrace požádá o heslo znovu — rozpracované změny se přitom neztratí.</p>
           </div></section>
       </div>
       <div style="display:grid;gap:1.4rem;align-content:start">
         <section class="card"><div class="card-head"><h3>Stav webu</h3></div><div class="card-pad" style="display:grid;gap:.8rem">
           <div class="pub ${S.pub.state}" style="background:var(--line-2);color:var(--text)"><i></i><span>${esc(S.pub.text)}</span></div>
-          <p class="muted" style="font-size:.86rem">Po uložení GitHub web automaticky přegeneruje a zveřejní. Obvykle to trvá 30–90 sekund.</p>
-          <a class="btn btn-ghost" href="https://github.com/${CFG.repo}/actions" target="_blank" rel="noopener">${IC.ext} Historie zveřejnění</a>
+          <p class="muted" style="font-size:.86rem">Po uložení se web automaticky přegeneruje a zveřejní. Obvykle to trvá 30–90 sekund.</p>
+          <a class="btn btn-ghost" href="../" target="_blank" rel="noopener">${IC.ext} Otevřít web</a>
         </div></section>
         <section class="card"><div class="card-head"><h3>Záloha dat</h3></div><div class="card-pad" style="display:grid;gap:.8rem">
-          <p class="muted" style="font-size:.86rem">Stáhněte si kompletní obsah webu (nemovitosti, články, reference a texty) do jednoho souboru. Každé uložení se navíc automaticky archivuje v historii úložiště.</p>
+          <p class="muted" style="font-size:.86rem">Stáhněte si kompletní obsah webu (nemovitosti, články, reference a texty) do jednoho souboru. Každé uložení se navíc automaticky archivuje, takže se dá vrátit i starší verze.</p>
           <button class="btn btn-ghost" data-backup>${IC.download} Stáhnout zálohu</button>
         </div></section>
         <section class="card"><div class="card-pad" style="display:grid;gap:.6rem"><button class="btn btn-ghost" data-lo>${IC.logout} Odhlásit se</button></div></section>
@@ -961,41 +923,20 @@ function viewSettings() {
   $('[data-lo]').addEventListener('click', logout);
   $('[data-backup]').addEventListener('click', () => {
     const blob = new Blob([JSON.stringify({ exported: new Date().toISOString(), ...S.D }, null, 1)], { type: 'application/json' });
-    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `tomasveigl-zaloha-${today()}.json`; a.click();
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${CFG.id}-zaloha-${today()}.json`; a.click();
   });
   $('[data-pw]').addEventListener('submit', async (e) => {
     e.preventDefault(); const f = e.target; const b = f.querySelector('[type=submit]');
     const old = f.old.value, n1 = f.n1.value, n2 = f.n2.value;
     if (n1.length < 8) return toast('Nové heslo je příliš krátké', 'Použijte alespoň 8 znaků.', 'err');
     if (n1 !== n2) return toast('Hesla se neshodují', '', 'err');
-    if (!S.token) return connectPrompt();
     b.disabled = true; b.textContent = 'Měním…';
     try {
-      await loadAuth();
-      if (!(await checkPw(old))) { toast('Současné heslo nesouhlasí', '', 'err'); return; }
-      const auth = await newAuth(n1, S.token);
-      await commit([{ path: '_data/auth.json', content: JSON.stringify(auth, null, 1) + '\n' }], 'Administrace: změna hesla');
-      S.auth = auth; S.def = false; sessionStorage.setItem('tva', JSON.stringify({ token: S.token, def: false }));
+      const r = await api('/password', { method: 'POST', body: JSON.stringify({ old, password: n1 }) });
+      S.sess = r.token; S.def = false; saveSess();
       toast('Heslo změněno', 'Příště se přihlaste novým heslem.', 'ok'); viewSettings();
     } catch (err) { toast('Heslo se nepodařilo změnit', err.message, 'err'); }
     finally { b.disabled = false; b.textContent = 'Změnit heslo'; }
-  });
-  $('[data-conn]').addEventListener('submit', async (e) => {
-    e.preventDefault(); const f = e.target; const b = f.querySelector('[type=submit]');
-    const tok = f.tok.value.trim(), pw = f.pw.value;
-    if (!tok) return toast('Vložte přístupový klíč', '', 'err');
-    b.disabled = true; b.innerHTML = '<span class="spin" style="border-color:rgba(255,255,255,.3);border-top-color:#fff"></span> Ověřuji…';
-    try {
-      await loadAuth();
-      if (!(await checkPw(pw))) { toast('Heslo nesouhlasí', 'Zadejte heslo, kterým se přihlašujete do administrace.', 'err'); return; }
-      await gh(`${R()}`, {}, tok);
-      const auth = await newAuth(pw, tok);
-      await commit([{ path: '_data/auth.json', content: JSON.stringify(auth, null, 1) + '\n' }], 'Administrace: propojení úložiště', tok);
-      S.auth = auth; S.token = tok; S.def = pw === 'admin';
-      sessionStorage.setItem('tva', JSON.stringify({ token: tok, def: S.def }));
-      toast('Propojeno', 'Od teď se změny ukládají přímo na web.', 'ok'); initPub(); viewSettings();
-    } catch (err) { toast('Propojení se nepovedlo', err.message, 'err'); }
-    finally { b.disabled = false; b.innerHTML = `${IC.link} Propojit`; }
   });
 }
 
@@ -1004,12 +945,12 @@ async function boot() {
   $('#app').innerHTML = `<div class="boot"><img src="../img/site/logo2-dark.png" alt=""><span class="muted" style="display:flex;gap:.7rem;align-items:center"><span class="spin"></span> Načítám obsah webu…</span></div>`;
   try { await loadAll(); }
   catch (e) {
-    if (e.status === 401) { sessionStorage.removeItem('tva'); S.token = null; return renderLogin('Přístupový klíč k úložišti vypršel nebo byl zrušen. Přihlaste se a vložte nový v Nastavení.'); }
+    if (e.status === 401) { localStorage.removeItem('tv_sess_' + CFG.id); S.sess = null; return renderLogin('Přihlášení vypršelo. Přihlaste se prosím znovu.'); }
     $('#app').innerHTML = `<div class="boot"><div class="banner err" style="max-width:520px">${IC.alert}<span><b>Obsah se nepodařilo načíst</b>${esc(e.message)}</span><button class="btn btn-ghost btn-sm" onclick="location.reload()">Zkusit znovu</button></div></div>`;
     return;
   }
   renderShell(); route();
 }
-const sess = JSON.parse(sessionStorage.getItem('tva') || 'null');
-if (sess) { S.token = sess.token || null; S.def = !!sess.def; boot(); } else renderLogin();
+const sess = JSON.parse(localStorage.getItem('tv_sess_' + CFG.id) || 'null');
+if (sess && sess.exp > Date.now()) { S.sess = sess.t; S.def = !!sess.def; boot(); } else renderLogin();
 })();
