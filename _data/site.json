@@ -1,0 +1,612 @@
+{
+ "contact.phone": "+420 737 132 041",
+ "contact.email": "reality@tomasveigl.cz",
+ "contact.address": "Třída Edvarda Beneše 1526/78, Hradec Králové",
+ "contact.ic": "684 56 255",
+ "contact.calendar": "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2FVFpnfyA8WAejvXm4w3nQwt5CBjg56ZaEEC5JL69R0093WGU7qkEl2kyTliHDKM-0qVM6m2pB",
+ "contact.assistant_name": "Radka Veiglová",
+ "contact.assistant_role": "Asistentka",
+ "contact.assistant_phone": "+420 737 143 908",
+ "contact.assistant_email": "radka@tomasveigl.cz",
+ "contact.facebook": "https://www.facebook.com/realityveigl",
+ "contact.instagram": "https://www.instagram.com/realitak_s_kochleary",
+ "contact.linkedin": "https://www.linkedin.com/in/mgr-tom%C3%A1%C5%A1-veigl/",
+ "contact.reality11": "https://www.reality11.cz/",
+ "contact.najem": "https://najemsradosti.cz/",
+ "contact.vykup": "https://klidnereseni.cz/",
+ "rating.value": "4,8",
+ "rating.count": "35",
+ "rating.source": "Firmy.cz",
+ "rating.url": "https://www.firmy.cz/detail/13326397-tomasveigl-cz-slysim-vas-domov-hradec-kralove-novy-hradec-kralove.html",
+ "topbar.items": [
+  {
+   "title": "Zlatý člen Realitní komory ČR"
+  },
+  {
+   "title": "Realiťák roku 2023 · 2. místo, okres HK"
+  }
+ ],
+ "footer.text": "Realitní makléř z Hradce Králové. Slyším díky technice, rozumím díky srdci.",
+ "footer.giant": "Slyším váš domov",
+ "footer.legal": "Mgr. Tomáš Veigl · Powered by REALITY 11 · Fyzická osoba zapsaná v živnostenském rejstříku",
+ "footer.docs": [
+  {
+   "title": "GDPR",
+   "url": "https://www.tomasveigl.cz/wp-content/uploads/2025/05/informace_o_ochrane_osobnich_udaju_-_gdpr.pdf"
+  },
+  {
+   "title": "Reklamační řád",
+   "url": "https://www.tomasveigl.cz/wp-content/uploads/2025/05/reklamacni_rad.pdf"
+  },
+  {
+   "title": "Oznamovací systém",
+   "url": "https://www.tomasveigl.cz/wp-content/uploads/2025/05/informace_o_vnitrnim_oznamovacim_systemu.pdf"
+  },
+  {
+   "title": "Vnitřní zásady",
+   "url": "https://www.tomasveigl.cz/wp-content/uploads/2025/05/system_vnitrnich_zasad.pdf"
+  }
+ ],
+ "cta.label": "Odhad ceny zdarma",
+ "cta.title": "Kolik má váš domov *hodnotu*?",
+ "cta.text": "Nezávazně a zdarma. Přijedu, poslechnu si, co od prodeje čekáte, a řeknu vám reálnou cenu — ne číslo z kalkulačky.",
+ "cta.btn": "Chci odhad ceny",
+ "partners.label": "Bezpečný obchod",
+ "partners.title": "Za každým obchodem stojí *ověření* partneři",
+ "partners.lead": "Smlouvy připravuje ABES nebo advokátní kancelář Rezek – Petráš, peníze putují přes úschovu UniCredit Bank a vaši nemovitost uvidí lidé na největších realitních portálech.",
+ "partners.items": [
+  {
+   "title": "Reality 11",
+   "image": "img/site/r11-dark.png",
+   "caption": "Realitní síť",
+   "url": "https://www.reality11.cz/"
+  },
+  {
+   "title": "Realitní komora ČR",
+   "image": "img/partners/rkcr.png",
+   "caption": "Zlatý člen",
+   "url": ""
+  },
+  {
+   "title": "ABES",
+   "image": "img/partners/abes.png",
+   "caption": "Právní servis",
+   "url": ""
+  },
+  {
+   "title": "Rezek – Petráš",
+   "image": "img/partners/rezek.png",
+   "caption": "Advokátní kancelář",
+   "url": ""
+  },
+  {
+   "title": "UniCredit Bank",
+   "image": "img/partners/unicredit.png",
+   "caption": "Úschova peněz",
+   "url": "https://www.unicreditbank.cz/"
+  },
+  {
+   "title": "Sreality",
+   "image": "img/partners/sreality.png",
+   "caption": "Inzerce",
+   "url": "https://www.sreality.cz/"
+  },
+  {
+   "title": "Reality iDNES",
+   "image": "img/partners/idnes.png",
+   "caption": "Inzerce",
+   "url": "https://reality.idnes.cz/"
+  },
+  {
+   "title": "České reality",
+   "image": "img/partners/ceskereality.png",
+   "caption": "Inzerce",
+   "url": "https://www.ceskereality.cz/"
+  }
+ ],
+ "home.seo_title": "Tomáš Veigl — realitní makléř, Hradec Králové | Slyším váš domov",
+ "home.seo_desc": "Realitní makléř Mgr. Tomáš Veigl — prodej, pronájem a výkup nemovitostí v Hradci Králové, Pardubicích, Kutné Hoře a Kolíně. 200+ prodaných nemovitostí, hodnocení 4,8.",
+ "home.hero_label": "Realitní makléř · Hradec Králové",
+ "home.hero_title": "Slyším\n*váš* domov.",
+ "home.hero_sub": "Jsem Tomáš Veigl. Prodávám a pronajímám domy, byty i chalupy ve východních Čechách. Díky kochleárnímu implantátu jsem se znovu naučil slyšet — a hlavně **naslouchat**. Vám i vašemu domovu.",
+ "home.hero_cta": "Odhad ceny zdarma",
+ "home.hero_link": "Nemovitosti v nabídce",
+ "home.hero_image": "img/site/portrait.webp",
+ "home.hero_tag_title": "200+ prodaných",
+ "home.hero_tag_text": "nemovitostí za 10 let",
+ "home.marquee": [
+  {
+   "title": "Hradec Králové"
+  },
+  {
+   "title": "Pardubice"
+  },
+  {
+   "title": "Kutná Hora"
+  },
+  {
+   "title": "Kolín"
+  },
+  {
+   "title": "Praha-východ"
+  },
+  {
+   "title": "Prodej"
+  },
+  {
+   "title": "Pronájem a správa"
+  },
+  {
+   "title": "Výkup"
+  },
+  {
+   "title": "Odhad ceny zdarma"
+  }
+ ],
+ "home.intents_label": "S čím přicházíte?",
+ "home.intents": [
+  {
+   "title": "Chci prodat",
+   "text": "Odhad ceny zdarma a prodej za nejvyšší možnou cenu.",
+   "link": "odhad-ceny.html"
+  },
+  {
+   "title": "Chci pronajmout",
+   "text": "Pronájem s radostí — garance nájmu až 600 000 Kč.",
+   "link": "sluzby.html#pronajem"
+  },
+  {
+   "title": "Hledám bydlení",
+   "text": "Domy, byty, chalupy a novostavby v nabídce.",
+   "link": "nemovitosti.html"
+  },
+  {
+   "title": "Potřebuji to rychle",
+   "text": "Rozvod, dluhy, dědictví? Výkup nebo chytrý prodej.",
+   "link": "sluzby.html#vykup"
+  }
+ ],
+ "home.statement_label": "Co ode mě čekat",
+ "home.statement": "Cílím na *nejvyšší možnou cenu*, ne na nejrychlejší podpis. ~Co si domluvíme, to platí.~ Ozvu se, když to slíbím. A protože vím přesně, co zařídit, ~nestřílím naslepo~ — šetřím váš čas i nervy.",
+ "home.pillars": [
+  {
+   "title": "Lepší cena",
+   "text": "Vždy cílím na nejvyšší možnou cenu, i když to chce špičkovou přípravu a pořádnou porci času."
+  },
+  {
+   "title": "Spolehlivost",
+   "text": "Ozývám se, jak jsem slíbil, plním, co očekáváte — a vždy jednám ve vašem zájmu."
+  },
+  {
+   "title": "Úspora času",
+   "text": "Vím, co a jak zařídit, aby prodej proběhl bezpečně a s požadovaným výsledkem."
+  }
+ ],
+ "home.sig_name": "Mgr. Tomáš Veigl",
+ "home.sig_role": "Realitní makléř · Powered by reality11 · zlatý člen RK ČR",
+ "home.feature_slug": "rodinny-dum-4kk-vinary-u-noveho-bydzova",
+ "home.feature_image": "img/nem/rodinny-dum-4kk-vinary-u/f05.webp",
+ "home.feature_label": "Právě připravujeme",
+ "home.feature_title": "Dům, kam se *budete těšit* celý týden.",
+ "home.feature_text": "Kompletně zrekonstruovaný interiér, tepelné čerpadlo, podlahové topení a zahrada, kde nemusíte počítat každý metr.",
+ "home.feature_btn": "Prohlédnout dům",
+ "home.offers_label": "Aktuální nabídka",
+ "home.offers_title": "Domovy, které *hledají* nové lidi",
+ "home.sold_text": "{n} domovů na tomhle webu už má nové majitele nebo nájemníky.",
+ "home.sold_link": "Prodané a pronajaté",
+ "home.story_label": "Můj příběh",
+ "home.story_title": "Proč umím *naslouchat* lépe než ostatní?",
+ "home.story_image": "img/site/telefon.webp",
+ "home.story_caption": "Hradec Králové, můj domov",
+ "home.story_lines": [
+  {
+   "title": "Kariéru v realitách jsem začal s horším sluchem. Svět ale časem *utichal* čím dál víc.",
+   "text": "Vyvinula se u mě těžká percepční ztráta sluchu. Pro makléře, pro kterého je komunikace vším, to bylo jako prodávat se zavázanýma očima."
+  },
+  {
+   "title": "Pak přišel *kochleární implantát*. A s ním se vrátil zvuk.",
+   "text": "Implantát obchází poškozené části ucha a posílá signál přímo do sluchového nervu. Vrátil mi sluch — a mnohem víc než jen to."
+  },
+  {
+   "title": "Kdo jednou ztratil sluch, začne *doopravdy naslouchat*.",
+   "text": "Nejen ušima, ale hlavně srdcem. Proto slyším i to, co klienti neříkají nahlas: obavy, přání a to, co pro ně domov znamená."
+  }
+ ],
+ "home.stats": [
+  {
+   "num": "200",
+   "suffix": "+",
+   "text": "prodaných a pronajatých nemovitostí"
+  },
+  {
+   "num": "10",
+   "suffix": "let",
+   "text": "zkušeností v realitách"
+  },
+  {
+   "num": "4,8",
+   "suffix": "★",
+   "text": "průměrné hodnocení z 35 recenzí"
+  },
+  {
+   "num": "2",
+   "suffix": ". místo",
+   "text": "Realiťák roku 2023, okres Hradec Králové"
+  }
+ ],
+ "home.services_label": "Služby",
+ "home.services_title": "S čím vám *pomůžu*",
+ "home.services_lead": "Prodej je jen začátek. Postarám se i o pronájem, výkup nebo stavbu nového domu — vždycky s jedním člověkem na telefonu.",
+ "home.services": [
+  {
+   "title": "Prodej nemovitosti",
+   "text": "Od úvodní schůzky přes profi fotky, video, dron a 3D scan až po předání klíčů a přepis energií. 21 kroků, nic nechybí.",
+   "link": "jak-pracuji.html",
+   "image": "img/site/street.webp"
+  },
+  {
+   "title": "Pronájem a správa",
+   "text": "Pronájem s radostí: opravy 24/7, garance nájmu až 600 000 Kč a právní asistence po celé republice.",
+   "link": "sluzby.html#pronajem",
+   "image": "img/site/najem.webp"
+  },
+  {
+   "title": "Výkup nemovitosti",
+   "text": "Klidné řešení pro rozvod, dluhy nebo dědictví. Rychle, férově a bez zbytečného čekání.",
+   "link": "sluzby.html#vykup",
+   "image": "img/site/klidne.webp"
+  },
+  {
+   "title": "Novostavby na klíč",
+   "text": "Nízkoenergetické domy PURLIVE v Hradci, Pardubicích, Kolíně i Kutné Hoře — od 1,3 mil. Kč.",
+   "link": "sluzby.html#novostavby",
+   "image": "img/nem/novostavbakolin/f00.webp"
+  },
+  {
+   "title": "Odhad ceny zdarma",
+   "text": "Zkušenost, ne kalkulačka. Řeknu vám, za kolik se vaše nemovitost reálně prodá — a proč.",
+   "link": "odhad-ceny.html",
+   "image": "img/site/dron1.webp"
+  }
+ ],
+ "home.reviews_label": "Reference",
+ "home.quote": "Hledáte makléře, kterému na klientech *opravdu záleží*? Pan Veigl je ta nejlepší volba.",
+ "home.quote_name": "Aneta Lišková",
+ "home.quote_meta": "Firmy.cz · 07.05.2026",
+ "home.regions_label": "Kde působím",
+ "home.regions_title": "Znám to tu *jako své boty*",
+ "home.regions_lead": "Mám přehled o vývoji cen ve východních Čechách a díky zkušenostem vím, jak vám tady zajistit nejvýhodnější prodej. Ale klidně přijedu kamkoli v Česku.",
+ "home.regions": [
+  {
+   "title": "Královéhradecko",
+   "text": "HK · Nový Bydžov · Rychnov"
+  },
+  {
+   "title": "Pardubicko",
+   "text": "Pardubice · Přelouč · Chrudim"
+  },
+  {
+   "title": "Kutnohorsko",
+   "text": "Kutná Hora · Čáslav"
+  },
+  {
+   "title": "Kolínsko",
+   "text": "Kolín · Velim"
+  },
+  {
+   "title": "Praha-východ",
+   "text": "a celá ČR"
+  }
+ ],
+ "home.blog_label": "Blog",
+ "home.blog_title": "Novinky ze *světa realit*",
+ "story.seo_title": "Můj příběh — Tomáš Veigl | Slyším váš domov",
+ "story.seo_desc": "Realitní makléř s kochleárním implantátem. Příběh Tomáše Veigla o tom, proč umí naslouchat lépe než ostatní.",
+ "story.hero_title": "Slyším díky technice.\n*Rozumím* díky srdci.",
+ "story.hero_lead": "Realitní makléř, ale také veselý člověk, manžel a táta. A člověk, který ví, jaké to je, když svět zničehonic ztichne.",
+ "story.hero_image": "img/site/whatsapp1.webp",
+ "story.dark_label": "Proč umím naslouchat",
+ "story.dark_title": "Od *ticha* ke každému slovu.",
+ "story.dark_lead": "Scrollujte pomalu. Tak nějak to znělo, když se mi sluch vracel.",
+ "story.lines": [
+  {
+   "title": "Svou kariéru v realitách jsem začal s horším sluchem. V průběhu let se ale vyvinula *těžká percepční ztráta* sluchu.",
+   "text": "Neuvěřitelně mi to ztížilo práci. Pro realitního makléře je komunikace vším — musím rozumět klientům, jednat jejich jménem a vysvětlit každý důležitý detail o nemovitosti. Ztráta sluchu mi bránila poskytovat služby, na které jsem byl zvyklý."
+  },
+  {
+   "title": "Rozhodl jsem se pro operaci *kochleárního implantátu*. Změnila mi život.",
+   "text": "Kochleární implantát obchází poškozené části ucha a posílá elektrické signály přímo do sluchového nervu. Implantát mi vrátil sluch — a nejen to."
+  },
+  {
+   "title": "Protože vím, jaké je o sluch přijít, *vnímám víc*. Okolí, lidi i to, co mi klienti opravdu říkají.",
+   "text": "Díky kochleární technologii mohu znovu naplno komunikovat. Implantát vrátil mou kariéru na správnou cestu — a mně dal schopnost pozorně naslouchat přesně tomu, co moji klienti chtějí."
+  }
+ ],
+ "story.timeline": [
+  {
+   "title": "Začátky",
+   "text": "První obchody v realitách — už tehdy s horším sluchem."
+  },
+  {
+   "title": "Ticho",
+   "text": "Těžká percepční ztráta sluchu. Každý telefonát je boj."
+  },
+  {
+   "title": "Implantát",
+   "text": "Operace, která mi vrátila zvuk — i chuť do práce."
+  },
+  {
+   "title": "2023",
+   "text": "2. místo v soutěži Realiťák roku, okres Hradec Králové."
+  },
+  {
+   "title": "2024",
+   "text": "3. místo v soutěži Realiťák roku, okres Hradec Králové."
+  }
+ ],
+ "story.family_label": "Kdo jsem",
+ "story.family_title": "Realitní makléř, ale také *veselý člověk*, manžel a táta",
+ "story.family_image": "img/site/rodina.webp",
+ "story.family_text": "Nejen prací živ je člověk. Kromě toho, že jsem realiťák, jsem hlavně člověk z masa a kostí. Volný čas se snažím co nejvíc trávit s rodinou.\n\nS dcerou Natálkou jezdíme na kole a koloběžce a lyžujeme. Doma máme dva psy — Coru (maďarský ohař) a Kyru (německý ohař), se kterými trávíme čas na louce nebo na procházkách v lese.\n\nV práci mi pomáhá manželka **Radka Veiglová** jako asistentka. Takže když voláte nám, voláte vlastně rodinné firmě.",
+ "story.family_quote": "Nuda? Tak to u nás *absolutně* nehledejte.",
+ "story.awards_label": "Ocenění a vzdělávání",
+ "story.awards_title": "Proč se účastním *Realiťáka roku*?",
+ "story.awards_image": "img/site/certifikaty.webp",
+ "story.awards_text": "Věřím, že kvalitní práce si zaslouží být vidět. Soutěž mě motivuje se neustále zlepšovat a posouvat dál — a je úzce propojená se vzděláváním. Mám díky ní přístup k aktuálním trendům, novinkám v legislativě a zkušenostem od špiček v oboru.\n\nV pravidelných rozhovorech Realiťáka roku můžete nahlédnout do mého přístupu k realitám: co mě motivuje, jak pracuji s klienty a proč mě tahle práce opravdu baví.",
+ "story.badges": [
+  {
+   "title": "2.",
+   "text": "místo · Realiťák roku 2023\nokres Hradec Králové"
+  },
+  {
+   "title": "3.",
+   "text": "místo · Realiťák roku 2024\nokres Hradec Králové"
+  },
+  {
+   "title": "Zlatý",
+   "text": "člen Realitní komory\nČeské republiky"
+  }
+ ],
+ "story.cta_title": "Pojďme si *promluvit*.",
+ "story.cta_text": "Rád si vyslechnu, co plánujete. Osobně u vás, v kanceláři v Hradci Králové nebo online — jak je vám to příjemnější.",
+ "process.seo_title": "Jak pracuji — 21 kroků k prodanému domovu | Tomáš Veigl",
+ "process.seo_desc": "Od úvodní schůzky přes vizualizace, dron, 3D scan a portály až po předání a přepis energií. Kompletní servis realitního makléře Tomáše Veigla.",
+ "process.hero_title": "{n} kroků\nk *prodanému* domovu",
+ "process.hero_lead": "Prodej nemovitosti není inzerát a čekání. Je to řemeslo. Tady je všechno, co pro vás udělám — od první kávy u vás v kuchyni až po přepis energií.",
+ "process.aside_btn": "Chci začít krokem 1",
+ "process.steps": [
+  {
+   "phase": "Příprava",
+   "title": "Úvodní schůzka",
+   "text": "Sejdeme se přímo u vás doma — v domě nebo bytě, který chcete prodat. Seznámíme se, projdeme stav nemovitosti a teprve pak řeknu, za kolik ji můžeme prodat, jak ji nabídnout, kolik to bude stát a jak dlouho to může trvat. Připravím i seznam podkladů: list vlastnictví, plány, případné nájemní smlouvy.",
+   "image": "img/site/street.webp",
+   "contain": false
+  },
+  {
+   "phase": "Příprava",
+   "title": "Strategický marketingový plán a analýza ceny",
+   "text": "Podrobně analyzuji trh, konkurenci a specifika vaší nemovitosti. Navrhnu optimální prodejní cenu a marketingový plán — cílenou reklamu, online prezentaci i prodejní strategii. Cílem je maximalizovat hodnotu a oslovit co nejširší okruh kupců.",
+   "image": "",
+   "contain": false
+  },
+  {
+   "phase": "Příprava",
+   "title": "TOP texty a přesné informace",
+   "text": "Dobré texty prodávají — zaujmou, budí důvěru a přesvědčí. Jasné a pravdivé informace šetří čas všem a předejdou zbytečným komplikacím. Férovost a transparentnost jsou základ dobrého obchodu.",
+   "image": "",
+   "contain": false
+  },
+  {
+   "phase": "Příprava",
+   "title": "PENB",
+   "text": "Průkaz energetické náročnosti budovy ukazuje, kolik energie nemovitost spotřebuje, a kupující hned ví, jaké budou náklady na provoz. Ze zákona je povinný při prodeji i pronájmu — jeho zajištění je samozřejmou součástí mé služby.",
+   "image": "img/site/penb.webp",
+   "contain": true
+  },
+  {
+   "phase": "Prezentace",
+   "title": "Vizualizace",
+   "text": "Prázdný nebo zastaralý prostor vizualizuji tak, aby si zájemci dokázali představit, jak by v něm mohli žít. Virtuální home staging pomáhá vidět potenciál místo nedostatků — a to prodává.",
+   "image": "img/site/vizu1.webp",
+   "contain": false
+  },
+  {
+   "phase": "Prezentace",
+   "title": "Půdorysy",
+   "text": "Pro každou nemovitost připravuji půdorys tak, jak vypadá teď, a zároveň návrh možného budoucího řešení. Zájemci tak na první pohled vidí, jak by prostor mohl fungovat pro ně.",
+   "image": "img/site/pudorys.webp",
+   "contain": true
+  },
+  {
+   "phase": "Prezentace",
+   "title": "Video",
+   "text": "Video během pár vteřin vzbudí emoci a přiblíží atmosféru místa. Díky videoprohlídce si zájemce udělá jasnou představu, aniž by musel hned přijet — a to šetří čas a zvyšuje šanci na rychlý prodej.",
+   "image": "",
+   "contain": false
+  },
+  {
+   "phase": "Prezentace",
+   "title": "Využití dronu",
+   "text": "Letecké záběry ukážou, co z ulice nevidíte: celý pozemek, okolí, přírodu i dostupnost. U domů, chalup a pozemků je dron často tím, co zájemce přesvědčí přijet na prohlídku.",
+   "image": "img/site/dron1.webp",
+   "contain": false
+  },
+  {
+   "phase": "Prezentace",
+   "title": "3D scan nemovitosti",
+   "text": "Zájemci si celou nemovitost projdou online, jako by tam skutečně byli — kdykoli a odkudkoli. Scan zvyšuje zájem a pomáhá odfiltrovat jen opravdu vážné zájemce.",
+   "image": "",
+   "contain": false
+  },
+  {
+   "phase": "Prezentace",
+   "title": "Samostatná webová stránka",
+   "text": "Každá nemovitost, kterou prodávám nebo pronajímám, dostane vlastní webovou stránku. Bez rušivých inzerátů a konkurence — se všemi fotkami, videem, půdorysy a kontaktem na jednom místě.",
+   "image": "img/site/scan3d.webp",
+   "contain": true
+  },
+  {
+   "phase": "Marketing",
+   "title": "Realitní portály",
+   "text": "Inzeruji na největších realitních portálech s maximální viditelností. Každý inzerát TOPuji 2× až 3× týdně, aby se držel na předních pozicích a oslovil co nejvíc zájemců.",
+   "image": "img/site/portaly.webp",
+   "contain": true
+  },
+  {
+   "phase": "Marketing",
+   "title": "Reklamní plachty",
+   "text": "Plachta přitahuje pozornost přímo tam, kde nemovitost stojí. Zaujme kolemjdoucí i sousedy, kteří často někoho znají — a mnohdy se právě díky ní ozve ten správný zájemce.",
+   "image": "img/site/plachta.webp",
+   "contain": false
+  },
+  {
+   "phase": "Marketing",
+   "title": "Katalog nemovitosti",
+   "text": "Každý zájemce ode mě při prohlídce dostane tištěný katalog se všemi informacemi, fotkami a půdorysy. Pomáhá mu nabídku si zapamatovat a vrátit se k ní doma.",
+   "image": "img/site/katalog.webp",
+   "contain": true
+  },
+  {
+   "phase": "Marketing",
+   "title": "Sociální sítě",
+   "text": "Na Facebooku, Instagramu i LinkedInu pravidelně sdílím novinky z trhu, zajímavé nemovitosti, zákulisí práce a užitečné rady. Nabídky se tak dostanou k mnohem většímu počtu lidí.",
+   "image": "",
+   "contain": false
+  },
+  {
+   "phase": "Marketing",
+   "title": "Aukce nemovitosti",
+   "text": "U velmi žádaných domů, bytů nebo pozemků využívám aukci. Z prodeje se stává férová a transparentní soutěž — a prodávající často získá vyšší cenu, než čekal.",
+   "image": "img/site/aukce.webp",
+   "contain": true
+  },
+  {
+   "phase": "Bezpečný obchod",
+   "title": "Výkup nemovitosti",
+   "text": "Rozvod, dluhy, dědictví nebo nutnost rychle se stěhovat — v takových situacích nabízím výkup. Považuji ho za krajní, ale férové řešení: peníze bez zbytečného čekání a starostí.",
+   "image": "",
+   "contain": false
+  },
+  {
+   "phase": "Bezpečný obchod",
+   "title": "Právní servis a úschova",
+   "text": "Veškeré právní kroky řeším se společností ABES, případně s advokátní kanceláří Rezek – Petráš. Finanční úschovu zajišťuji výhradně přes UniCredit Bank. Vše transparentní a pod kontrolou.",
+   "image": "img/site/pravni.webp",
+   "contain": true
+  },
+  {
+   "phase": "Bezpečný obchod",
+   "title": "Předání nemovitosti",
+   "text": "Třešnička na dortu, kdy vše do sebe zapadne. Společně projdeme nemovitost, sepíšeme předávací protokol, nafotíme stav a doladíme poslední detaily. Tady končí práce a začíná nový domov.",
+   "image": "",
+   "contain": false
+  },
+  {
+   "phase": "Bezpečný obchod",
+   "title": "Přepis energií",
+   "text": "Předáním moje práce nekončí. Společně jdeme přepsat energie, pomůžu s formuláři a vysvětlím postup, aby se nový majitel mohl v klidu zabydlet.",
+   "image": "",
+   "contain": false
+  },
+  {
+   "phase": "Něco navíc",
+   "title": "Realiťák roku",
+   "text": "Soutěž mě motivuje zlepšovat se a dává mi přístup k trendům, legislativě a zkušenostem špiček oboru. V okrese Hradec Králové jsem v roce 2023 skončil 2., v roce 2024 3.",
+   "image": "img/site/certifikaty.webp",
+   "contain": true
+  },
+  {
+   "phase": "Něco navíc",
+   "title": "Rozhovory",
+   "text": "V rozhovorech projektu Realiťák roku můžete nahlédnout do mého přístupu: co mě motivuje, jak pracuji s klienty a proč mě tahle práce opravdu baví. Za každým prodejem stojí opravdový člověk.",
+   "image": "",
+   "contain": false
+  }
+ ],
+ "process.cta_title": "Začneme *krokem jedna*?",
+ "process.cta_text": "Úvodní schůzka je nezávazná. Přijedu, prohlédnu si nemovitost a řeknu vám, jak bych ji prodával — a za kolik.",
+ "listing.seo_title": "Nemovitosti v nabídce — Tomáš Veigl, realitní makléř",
+ "listing.seo_desc": "Aktuální nabídka domů, bytů, chalup a novostaveb ve východních Čechách i reference prodaných a pronajatých nemovitostí.",
+ "listing.hero_title": "Domy, byty a chalupy,\nkteré *hledají* nové lidi",
+ "listing.hero_lead": "Aktuální nabídka i to, co už má nové majitele. Každá nemovitost dostala vlastní prezentaci, fotky, půdorysy a péči.",
+ "listing.empty": "V této kombinaci teď nic nemám. Ale ozvěte se — často vím o nemovitostech dřív, než jdou na portály.",
+ "listing.cta_title": "Hledáte, co *tu není*?",
+ "listing.cta_text": "Řekněte mi, co hledáte. Často vím o nemovitostech dřív, než se objeví na portálech — a rád vám dám vědět jako prvnímu.",
+ "listing.card_label": "Prodáváte?",
+ "listing.card_title": "Tady je místo pro *vaši* nemovitost.",
+ "listing.card_btn": "Odhad ceny zdarma",
+ "detail.agent_sub": "Váš makléř pro tuto nemovitost",
+ "detail.btn": "Domluvit prohlídku",
+ "detail.viz_note": "Ilustrativní vizualizace možného budoucího řešení.",
+ "services.seo_title": "Služby — prodej, pronájem, výkup a novostavby | Tomáš Veigl",
+ "services.seo_desc": "Prodej nemovitostí v 21 krocích, Pronájem s radostí s garancemi až 600 000 Kč, výkup Klidné řešení a novostavby PURLIVE.",
+ "services.hero_title": "Prodej, pronájem, výkup.\n*Klidně* a férově.",
+ "services.sale_title": "Prodám váš dům za *nejvyšší možnou* cenu",
+ "services.sale_image": "img/site/dron2.webp",
+ "services.sale_text": "Nestačí vyfotit pokoje a dát inzerát na portál. Každá nemovitost ode mě dostane strategii, profesionální fotky, video, dron, 3D scan, vizualizace, půdorysy, vlastní web, tištěný katalog i plachtu na plot.\n\nInzeráty TOPuji 2–3× týdně, smlouvy připravuje ABES nebo AK Rezek – Petráš a peníze putují přes úschovu UniCredit Bank. Po předání s vámi jdu přepsat i energie.",
+ "services.sale_points": [
+  {
+   "title": "Profi fotky, video a dron",
+   "text": "Prezentace"
+  },
+  {
+   "title": "3D scan a vizualizace",
+   "text": "Prezentace"
+  },
+  {
+   "title": "Portály, sítě, plachty",
+   "text": "Marketing"
+  },
+  {
+   "title": "Právní servis a úschova",
+   "text": "Bezpečnost"
+  }
+ ],
+ "services.rent_title": "My se staráme, *vy si užíváte* života",
+ "services.rent_text": "Pronájem bez nočních telefonátů a strachu z neplatiče. Najdu spolehlivého nájemníka, postarám se o správu a vy máte garance, které běžný pronájem nenabízí.",
+ "services.rent_image": "img/site/najem.webp",
+ "services.guarantees": [
+  {
+   "title": "600 000 Kč",
+   "text": "zaplacení nájmu za nájemníka při nemoci nebo ztrátě zaměstnání"
+  },
+  {
+   "title": "250 000 Kč",
+   "text": "proplacení škod způsobených nájemníkem"
+  },
+  {
+   "title": "100 000 Kč",
+   "text": "proplacení dluhu při sporu s nájemcem kvůli nezaplacenému nájmu"
+  },
+  {
+   "title": "24/7",
+   "text": "opravy závad a havárií i právní asistence — po celé ČR"
+  }
+ ],
+ "services.buy_title": "Výkup, když *čas* hraje roli",
+ "services.buy_image": "img/site/klidne.webp",
+ "services.buy_text": "Rozvod, dluhy, dědictví nebo nutnost rychle se stěhovat. Jsou situace, kdy je potřeba jednat opravdu rychle — a tehdy nabízím výkup nemovitosti.\n\nPovažuji ho za krajní, ale férové řešení. Nejdřív vám ale vysvětlím možnosti a pomůžu najít další postup. **Ne vždy je potřeba výkup. Někdy stačí dobře nastavený prodej.**",
+ "services.new_title": "Nový dům *bez starostí* se stavbou",
+ "services.new_text": "Nízkoenergetické dřevostavby systému PURLIVE ve stavu k dokončení. Ceny včetně 12% DPH.",
+ "reference.seo_title": "Reference — {rating} z {count} hodnocení | Tomáš Veigl",
+ "reference.seo_desc": "Co o realitním makléři Tomáši Veiglovi říkají jeho klienti. Hodnocení {rating} z {count} recenzí na Firmy.cz.",
+ "reference.hero_title": "Co o mně *říkají* klienti",
+ "reference.hero_lead": "Skutečná hodnocení z Firmy.cz — včetně mých odpovědí. Protože naslouchat znamená i odpovědět.",
+ "reference.cta_title": "Buďte můj další *spokojený* klient.",
+ "reference.cta_text": "Rád pro vás udělám to samé. Stačí zavolat nebo si domluvit nezávazný odhad ceny.",
+ "blog.seo_title": "Blog — novinky ze světa realit | Tomáš Veigl",
+ "blog.seo_desc": "Články realitního makléře Tomáše Veigla: daň z prodeje nemovitosti, zvyšování nájmu, stavební dokumentace, PENB a další.",
+ "blog.hero_title": "Novinky ze\n*světa realit*",
+ "blog.hero_lead": "Daně, nájmy, legislativa i zamyšlení z praxe. Píšu srozumitelně — tak, jak bych to vysvětloval u vás v kuchyni.",
+ "blog.question": "Máte k tématu otázku?",
+ "estimate.seo_title": "Odhad ceny nemovitosti zdarma | Tomáš Veigl",
+ "estimate.seo_desc": "Nezávazný odhad ceny domu, bytu nebo pozemku od zkušeného makléře. Hradec Králové, Pardubice, Kutná Hora, Kolín.",
+ "estimate.hero_title": "Kolik má váš domov\n*hodnotu*?",
+ "estimate.quote": "Umění nastavit cenu tak, abyste za prodej dostali maximum, je ve zkušenostech. Online kalkulačka vám dá číslo. Já vám dám cenu.",
+ "estimate.aside": "Nikdy nenajdete dvě stejné nemovitosti. Často působí podobně, ale liší se v hromadě detailů.\n\nDíky zkušenostem vím, na co se zaměřit, jak vyzdvihnout výhody a jak poctivě prezentovat nedostatky. Proto se mi daří prodávat za tu nejvýhodnější cenu.",
+ "estimate.thanks": "Děkuji! Ozvu se vám do 24 hodin. — Tomáš",
+ "contactpage.seo_title": "Kontakt — Tomáš Veigl, realitní makléř Hradec Králové",
+ "contactpage.hero_title": "Ozvěte se.\n*Slyším* vás.",
+ "contactpage.band": "Slyším díky technice, *rozumím díky srdci*.",
+ "contactpage.thanks": "Děkuji za zprávu, brzy se vám ozvu. — Tomáš"
+}
