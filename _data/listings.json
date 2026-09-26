@@ -153,7 +153,7 @@
   "id": "bytrychnov",
   "slug": "bytrychnov",
   "title": "3+1 s balkonem v Rychnově nad Kněžnou – 72 m² a velký potenciál pro bydlení i investici",
-  "short": "Byt 3+1 s balkonem, Rychnov — TEST WORKER",
+  "short": "Byt 3+1 s balkonem, Rychnov nad Kněžnou",
   "type": "Byt",
   "status": "nabidka",
   "address": "Na Trávníku 1309, Rychnov nad Kněžnou",
@@ -209,14 +209,12 @@
    "img/nem/bytrychnov/v02.webp",
    "img/nem/bytrychnov/v03.webp",
    "img/nem/bytrychnov/v04.webp",
-   "img/nem/bytrychnov/v05.webp",
-   "img/uploads/2026-09/byt-3-1-s-balkonem-rychnov-nad-kneznou-69pe6w.webp"
+   "img/nem/bytrychnov/v05.webp"
   ],
   "thumb": "img/listings/05.jpg",
   "home": true,
   "hidden": false,
-  "seo_desc": "",
-  "updated": "2026-09-26T12:05:43.861Z"
+  "seo_desc": ""
  },
  {
   "id": "garsonkahradec",
