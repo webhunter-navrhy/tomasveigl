@@ -476,7 +476,7 @@ function updateSavebar() {
   const keys = dirtyKeys();
   const imgs = Object.keys(S.pending).length;
   bar.classList.toggle('show', keys.length > 0 || S.saving);
-  bar.querySelector('.txt').innerHTML = S.saving ? '<b>Ukládám…</b><small>Nahrávám změny na web</small>' : `<b>Neuložené změny</b><small>${keys.map((k) => LABEL[k]).join(', ')}${imgs ? ` · ${imgs} nových obrázků` : ''}</small>`;
+  bar.querySelector('.txt').innerHTML = S.saving ? '<b>Ukládám…</b><small>Nahrávám změny na web</small>' : `<b>Neuložené změny</b><small>${keys.map((k) => LABEL[k]).join(', ')}${imgs ? ` · ${imgs} ${imgs === 1 ? 'nový obrázek' : imgs < 5 ? 'nové obrázky' : 'nových obrázků'}` : ''}</small>`;
   bar.querySelector('[data-save]').disabled = S.saving;
   bar.querySelector('[data-discard]').disabled = S.saving;
   updateNav($('.side [data-nav].on')?.dataset.nav, $('.side [data-sub].on')?.dataset.sub);
